@@ -46,15 +46,40 @@
 <body>
 
     <header>
-        <%- include('../common/navbar') %>
-            <% if(successFlash.length>0) { %>
-                <div class="container mt-1">
-                    <div class="alert alert-info">
-                        <%= successFlash %>
-                    </div>
-
+        <nav class="navbar navbar-expand-md navbar-light " style="background-color: #e3f2fd;">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="{% static 'images/logo.png' %}" width="38" height="38" class="d-inline-block align-top" alt="">
+                    PO Scanner
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/"> Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/help">Getting Started</a>
+                        </li>
+                    </ul>
                 </div>
-                <% } %>
+                <p class='mx-1 my-1' style="color:#116fd2;">Hello Aman
+                </p>
+                <a class="btn btn-outline-primary my-2 my-sm-0" href="/users/logout">Logout</a>
+                <a href="/admin" class="btn btn-outline-primary my-2 mx-1">Admin</a>
+                <a class="btn btn-outline-primary my-2 my-sm-0" href="/users/login">Login</a>
+            </div>
+        </nav>
+        {% if code == '1' %}
+        <div class="container mt-1">
+            <div class="alert alert-info">
+                {{msg}}
+            </div>
+        </div>
+        {% endif %}
     </header>
 
     <!-- Begin page content -->
@@ -65,7 +90,8 @@
         <div class="container d-flex align-items-center justify-content-center" style="height:80vh;">
             <div class="bg-light border border-dark rounded w-50">
                 <p class="lead text-center">Add a New User </p>
-                <form action="/users/register" class="mx-4 my-4" method="post">
+                <form action="{% url 'RegisterView' %}" class="mx-4 my-4" method="POST">
+                    {% csrf_token %}
                     <div class="form-group">
                         <label for="email">Email:</label>
                         <input type="email" class='form-control w-100' pattern="^[A-Za-z0-9._%+-]+@iitrpr.ac.in$"
@@ -73,19 +99,13 @@
                             placeholder="example@iitrpr.ac.in" required />
                     </div>
                     <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input class="form-control w-100" type="text" name="name" id="name" placeholder="Name"
+                        <label for="name">Department:</label>
+                        <input class="form-control w-100" type="text" name="dept" id="name" placeholder="Department"
                             required />
                     </div>
                     <div class="form-group">
-                        <label for="googleSheetLink">Google Sheet Link:</label>
-                        <input class="form-control w-100" type="url" name="googleSheetLink" id="googleSheetLink"
-                            placeholder="Sheet Link" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="driveFolderLink">Drive Folder Link:</label>
-                        <input class="form-control w-100" type="url" name="driveFolderLink" id="driveFolderLink"
-                            placeholder="Drive Folder" required />
+                        <label for="name">Password:</label>
+                        <input class="form-control w-100" type="password" name="password" id="name" placeholder="Password" required />
                     </div>
                     <div class="form-group">
                         <label for="isAdmin" class="bg-danger text-white">Make Admin?</label>
