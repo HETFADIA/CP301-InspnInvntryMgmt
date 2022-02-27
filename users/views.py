@@ -10,8 +10,20 @@ from .models import Users
 from django.http import JsonResponse
 from django.core.files.storage import FileSystemStorage
 from django.core import serializers
-
+from django.core.mail import send_mail
+f=open("debug.txt","w")
+f.write("hi")
+def _send_email(subject,msg,_from,to):
+    print(subject,msg,_from,to)
+    send_mail(
+        subject,
+        msg,
+        _from,
+        [to],
+        fail_silently=False,
+    )
 def RegisterView(request):
+    print(request.user)
     if(request.user.is_authenticated):
         return redirect('HomeView')
 
@@ -20,19 +32,32 @@ def RegisterView(request):
         dept=request.POST.get('dept')
         password1 = request.POST.get('password')
         isadmin = request.POST.get('isAdmin')
-
         if isadmin == "true":
             isadmin = 1
-
-        if len(User.objects.filter(email=email)) == 0:
+        else:
+            isadmin=0
+        print("b",User.objects.filter(email=email).exists(),User.objects.filter(email=email).exists()==False)
+        print(User.objects.filter(username=email))
+        if User.objects.filter(username=email).exists():
+            f.write("user already exists")
+        if len(User.objects.filter(username=email))==0:
             hashed_pwd = make_password(password1)
             Users.objects.create(email = email, password = hashed_pwd, department=dept, isAdmin=isadmin)
             user = User.objects.create_user(username=email,password=password1)
             user.save()
+            
             user = authenticate(username = email , password = password1)
             login(request, user)
             return redirect("HomeView")
         else:
+            f.write("user already exists na")
+            
+            user = authenticate(username = email , password = password1)
+            if user!=None:
+                login(request, user)
+                return redirect("HomeView")
+            else:
+                return render(request, 'users/register.html', {'code': 1, 'msg' : 'Wrong creditentials.'})
             return render(request, 'users/register.html', {'code': 1, 'msg' : 'User already exists.'})
     return render(request, 'users/register.html', {'code': 0})
     
@@ -41,6 +66,7 @@ def HomeView(request):
     return render(request, 'home/index.html')
     
 def LoginView(request):
+    print(request.user)
     if(request.user.is_authenticated):
         return render(request, 'home/index.html')
     if request.method == "POST":
@@ -61,3 +87,7 @@ def LoginView(request):
 def LogoutView(request):
     logout(request)
     return redirect('RegisterView')
+
+
+def PasswordResetView(request):
+    return render(request, 'home/index.html')
