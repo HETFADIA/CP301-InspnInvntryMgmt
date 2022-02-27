@@ -111,7 +111,7 @@ def changePasswordView(request):
                 t.save()
                 print("debugging",t)
                 
-                return render(request, 'users/changePassword.html', {'code': '1', 'msg': 'Password changed successfully.'})
+                return render(request, 'users/login.html', {'code': '1', 'msg': 'Password changed successfully.'})
                 # return redirect('HomeView')
             else:
                 return render(request, 'users/changePassword.html', {'code': '1', 'msg': 'incorrect password.'})
