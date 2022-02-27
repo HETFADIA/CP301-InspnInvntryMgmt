@@ -90,4 +90,5 @@ def LogoutView(request):
 
 
 def PasswordResetView(request):
-    return render(request, 'home/index.html')
+    
+    return render(request, 'users/passwordResetRequest.html')
