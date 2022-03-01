@@ -123,7 +123,14 @@ def LogoutView(request):
     logout(request)
     return redirect('RegisterView')
 
-
+def emailSentView(request):
+    return render(request, 'users/checkEmail.html')
+def gmailLinkView(request):
+    return render(request, 'users/resetPassword_gmailLink.html')
 def PasswordResetView(request):
-    
+    print(request.method)
+    if request.method == "POST":
+        email = request.POST.get('email')
+        print(email)
+        return render(request, 'users/checkEmail.html')
     return render(request, 'users/passwordResetRequest.html')

@@ -87,33 +87,8 @@
     <main role="main" class="container">
         <div class="container d-flex align-items-center justify-content-center" style="height:80vh;">
             <div class="bg-light border border-dark rounded w-50">
-                <p class="lead text-center">Login </p>
-                <form action="{% url 'PasswordResetView' %}" method="POST" class="mx-4 my-4">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class='form-control w-100' name="email" id="email"
-                            placeholder="example@iitrpr.ac.in" required />
-                    </div>
-                    {% comment %} <div class="form-group">
-                        <label for="password">Old Password:</label>
-                        <input class="form-control w-100" type="password" name="password" id="password"
-                            placeholder="Password" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="new_password">New Password:</label>
-                        <input class="form-control w-100" type="password" name="new_password" id="new_password"
-                            placeholder="Password" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="new_password_repeat">Confirm New Password:</label>
-                        <input class="form-control w-100" type="password" name="new_password_repeat" id="new_password_repeat"
-                            placeholder="Password" required />
-                    </div> {% endcomment %}
-                    <button class="btn btn-outline-primary" type="submit">Send Email</button>
-                    <hr>
-                    {% comment %} <a href="/passwordreset" class="text-decoration-none">Reset Password</span></a> {% endcomment %}
-                </form>
+                <p class="lead text-center">An Email has been sent. Please check your email to change password. </p>
+                
             </div>
         </div>
     </main>
