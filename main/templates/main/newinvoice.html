@@ -10,7 +10,9 @@
         body {
             /* Margin bottom by footer height */
             margin-bottom: 60px;
-			margin-left: 20px;
+			margin-left: 30px;
+			margin-top:20px;
+			margin-right:20px;
         }
     
         .footer {
@@ -23,13 +25,18 @@
             /* Vertically center the text there */
             background-color: #f5f5f5;
         }
+		.red{
+			color: red;
+			background-color:red;
+		}
     </style>
 </head>
 <h3>Invoice Form</h3>
 <hr>
-
-<form action="/main/newinvoice/" method="POST">
-	{% csrf_token %}
-	{{form.as_p}}
-	<input class="btn btn-success" type="submit">
-</form>
+<div class="form-group">
+	<form action="/main/newinvoice/" method="POST">
+		{% csrf_token %}
+		{{form.as_p}}
+		<input class="btn btn-success" type="submit">
+	</form>
+</div>
