@@ -17,6 +17,7 @@ def fill_Invoice(request):
 
             if form.is_valid():
                 print("aa rha h....aaaa rhaa h...data aa rha h....🤩")
+                print(form)
                 return HttpResponse("...kamal kr diya..aapne form bharke...aapko pore do joote milte h...innaam me!")
 
         context = {'form': form}

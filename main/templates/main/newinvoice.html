@@ -28,7 +28,7 @@
 <h3>Invoice Form</h3>
 <hr>
 
-<form action="/main/newinvoice" method="POST">
+<form action="/main/newinvoice/" method="POST">
 	{% csrf_token %}
 	{{form.as_p}}
 	<input class="btn btn-success" type="submit">
