@@ -1,0 +1,147 @@
+{% extends 'home/master.html' %}
+{% load static %}
+
+
+{% block headblock %}
+
+<script src="{%static 'ckeditor/ckeditor.js' %}"></script>
+
+{% endblock %}
+
+{% block mainblock %}
+
+<!-- Datatables Header -->
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="fa fa-table"></i>Initiate Request<br><small>You can add, edit and delete any request.</small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li>Initiate</li>
+    <li><a href="/panel/news/add/">Request</a></li>
+</ul>
+<!-- END Datatables Header -->
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- Basic Form Elements Block -->
+        <div class="block">
+            <!-- Basic Form Elements Title -->
+            <div class="block-title">
+
+                <h2><strong>Create</strong> Request</h2>
+            </div>
+            <!-- END Form Elements Title -->
+
+            <!-- Basic Form Elements Content -->
+            <form action="{%url 'CreateRequest' %}" method="post" enctype="multipart/form-data"
+                class="form-horizontal form-bordered">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="text" id="newstitle" name="po_number" class="form-control" placeholder="PO Number">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" id="newstitle" name="po_date" class="form-control" placeholder="PO Date" onfocus="(this.type='date')" onblur="(this.type='text')">
+                    </div>
+                    
+                    
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <input type="text" id="newstitle" name="vendor_name" class="form-control"
+                            placeholder="Vendor Name">
+                    </div>
+                    <div class="col-md-4">
+
+                        <select id="newscat" name="department" class="select-chosen"
+                            data-placeholder="Choose a Department..." style="width: 250px;">
+
+                            {% for i in dept %}
+                            <option value="{{i.department}}">{{i.department}}</option>
+                            {% endfor %}
+
+
+                        </select>
+
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <input type="text" id="newstitle" name="date_of_delivery" class="form-control" placeholder="Date of Delivery" onfocus="(this.type='date')" onblur="(this.type='text')">
+                    </div>
+                    
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="text" id="newstitle" name="invoice_number" class="form-control" placeholder="Invoice Number">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" id="newstitle" name="invoice_amount" class="form-control" placeholder="Invoice Amount">
+                    </div>
+                                    
+                
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <textarea type="text" id="newstxtshort" name="comments" rows="5" class="form-control"
+                            placeholder="Any Comments">Any Comments</textarea>
+                    </div>
+
+                </div>
+
+                <script>
+                    CKEDITOR.replace('newstxtshort');
+                </script>
+
+
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="file" id="myfile" name="invoice" rows="5" class="form-control"
+                            placeholder="Body txt">
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-angle-right"></i>
+                            Submit</button>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+            </form>
+            <!-- END Basic Form Elements Content -->
+        </div>
+        <!-- END Basic Form Elements Block -->
+    </div>
+
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+{% block footerblock %}
+
+<!-- Load and execute javascript code used only in this page -->
+<script src="{%static 'back/js/pages/tablesDatatables.js' %}"></script>
+<script>$(function () { TablesDatatables.init(); });</script>
+{% endblock %}

@@ -90,7 +90,7 @@
       </h3> -->
         <div class="container d-flex align-items-center justify-content-center" style="height:80vh;">
             <div class="bg-light border border-dark rounded w-50">
-                <p class="lead text-center">Add a New User </p>
+                <p class="lead text-center">Add a New Department </p>
                 <form action="{% url 'RegisterView' %}" class="mx-4 my-4" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
@@ -100,20 +100,19 @@
                             placeholder="example@iitrpr.ac.in" required />
                     </div>
                     <div class="form-group">
-                        <label for="name">Department:</label>
-                        <input class="form-control w-100" type="text" name="dept" id="name" placeholder="Department"
-                            required />
+                        <label for="dept">Department:</label>
+                        <select class="form-control" id="dept" name="dept">
+                            <option>Stores</option>
+                            <option>CSE</option>
+                            <option>ECE</option>
+                            <option>CHB</option>
+                            <option>MEB</option>
+                            <option>MNC</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="name">Password:</label>
                         <input class="form-control w-100" type="password" name="password" id="name" placeholder="Password" required />
-                    </div>
-                    <div class="form-group">
-                        <label for="isAdmin" class="bg-danger text-white">Make Admin?</label>
-                        <select id="isAdmin" name="isAdmin" class="form-control">
-                            <option selected value="false">No</option>
-                            <option value="true">Yes</option>
-                        </select>
                     </div>
                     <button class="btn btn-outline-primary" type="submit">Submit</button>
                 </form>
