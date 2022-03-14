@@ -1,0 +1,116 @@
+{% extends 'home/master.html' %}
+{% load static %}
+
+
+{% block mainblock %}
+
+<!-- Datatables Header -->
+<div class="content-header">
+    <div class="header-section">
+        <h1>
+            <i class="fa fa-table"></i>Request Pending<br><small>You can add, edit and delete your data!</small>
+        </h1>
+    </div>
+</div>
+<ul class="breadcrumb breadcrumb-top">
+    <li>News</li>
+    <li><a href="/panel/news/list/">List</a></li>
+</ul>
+<!-- END Datatables Header -->
+
+
+
+<!-- Datatables Content -->
+<div class="block full">
+    <div class="block-title">
+        <h2><strong>News</strong> List</h2>
+    </div>
+
+    <div class="table-responsive">
+        <table id="" class="table table-vcenter table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th>Vendor Name</th>
+                    <th>Department</th>
+                    <th>Date of Delivery</th>
+                    <th class="text-center">PO Number</th>
+                    <th>PO Date</th>
+                    <th>Invoice Number</th>
+                    <th>Invoice Amount</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for cc in news %}
+                <tr>
+                    <td class="text-center">{{cc.id}}</td>
+                    <td>{{cc.vendor_name}}</td>
+                    <td>{{cc.department}} | {{cc.time}}</td>
+                    <td>{{cc.date_of_delivery}}</td>
+                    <td>{{cc.po_number}}</td>
+                    <td>{{cc.po_date}}</td>
+                    <td>{{cc.invoice_number}}</td>
+                    <td>{{cc.invoice_amount}}</td>
+                    {% if cc.status == 0 %}
+                    <td>Pending</td>
+                    {% elif cc.status == 1 %}
+                    <td>Confirmed</td>
+                    {% endif %}
+                    <td>{{cc.comments}}</td>
+                    <td class="text-center">
+                        <div class="btn-group">
+
+                            <a href="{%url 'news_edit' pk=cc.pk %}" data-toggle="tooltip" title="Edit"
+                                class="btn btn-xs btn-default"><i class="fa fa-pencil"> Edit</i></a>
+                            <a href="{%url 'news_delete' pk=cc.pk %}" data-toggle="tooltip" title="Delete"
+                                class="btn btn-xs btn-danger"><i class="fa fa-times"> Delete</i></a>
+                            {% if perms.main.masteruser %}
+                            <a href="{%url 'news_publish' pk=cc.pk %}" data-toggle="tooltip" title="Edit"
+                                class="btn btn-xs btn-default"><i class="fa fa-pencil"> Publish</i></a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+
+        </table>
+        Page {{news.number}} From {{news.paginator.num_pages}}
+        <br /><br />
+        {% if news.has_previous %}
+        <a href="?page={{news.previous_page_number}}" data-toggle="tooltip" title="Previous"
+            class="btn btn-xs btn-default"> Previous</a>
+        {% endif %}
+
+        {% for i in news.paginator.page_range %}
+        {% if news.number == i %}
+        <a href="#" data-toggle="tooltip" title="{{Disables}}" class="btn btn-xs btn-default">
+            {{i}}</a>
+        {% else %}
+        <a href="?page={{i}}" data-toggle="tooltip" title="{{i}}" class="btn btn-xs btn-default"> {{i}}</a>
+        {% endif %}
+        {% endfor %}
+
+        {% if news.has_next %}
+        <a href="?page={{news.next_page_number}}" data-toggle="tooltip" title="Next" class="btn btn-xs btn-default">
+            Next</a>
+        {% endif %}
+    </div>
+</div>
+<!-- END Datatables Content -->
+
+
+{% endblock %}
+
+
+
+
+{% block footerblock %}
+
+<!-- Load and execute javascript code used only in this page -->
+<script src="{%static 'back/js/pages/tablesDatatables.js' %}"></script>
+<script>$(function () { TablesDatatables.init(); });</script>
+{% endblock %}
