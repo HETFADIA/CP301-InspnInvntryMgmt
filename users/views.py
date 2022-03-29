@@ -4,7 +4,9 @@ from django.contrib.auth import login, logout, authenticate
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from .models import Departments
+from django.views.decorators.csrf import csrf_exempt
     
+@csrf_exempt
 def RegisterView(request):
 
     if(request.user.is_authenticated):
@@ -37,6 +39,7 @@ def RegisterView(request):
 
     return render(request, 'users/register.html', {'code': 0})
     
+@csrf_exempt
 def LoginView(request):
 
     if(request.user.is_authenticated):
@@ -63,6 +66,7 @@ def LoginView(request):
 
     return render(request, 'users/login.html', {'code' : '0'})
 
+@csrf_exempt
 def ChangePasswordView(request):
 
     if request.method == "POST":
